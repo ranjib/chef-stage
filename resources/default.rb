@@ -24,3 +24,6 @@ default_action :run
 
 attribute :run_list, :kind_of => String, :default => ""
 attribute :save, :kind_of => [ TrueClass, FalseClass ], :default => true
+attribute :arguments, :kind_of => Hash, :default => {}
+attribute :json_attributes, :kind_of => Hash
+

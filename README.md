@@ -1,5 +1,7 @@
+
 Description
 ====
+
  _stage_ facilitates multi stage chef runs
 
 Requirements
@@ -11,12 +13,17 @@ Debian, Ubuntu, CentOS, Red Hat, Scientific, Fedora, SUSE, Amazon, GCEL.
 Usage
 ====
 include the "stage" recipe to use the lwrp. this recipe provides a default resource name "stage". 
-__stage__ resource can have two options, __run_list__ which is simlar to node run list and can be
+__stage__ resource can take four options, __run_list__ which is simlar to node run list and can be
 a comma separated string of recipes and roles. the other option __save__ is a boolean, which dictates
 whether the attributes from the run list will be saved or merged against the current node or not, __save__
-is true by default. __stage__ resource right now support only _:run_ action. Stage reasource is idempotency 
-aware and can be used to notify other resources (assuming the resources invoked by the run list attribute are 
+is true by default. __stage__ resource right now supports only _:run_ action. Stage reasource is idempotent
+and can be used to notify other resources (assuming the resources invoked by the run list attribute are 
 idempotent).
+
+the options __json_attributes__ and __args__ can be used to pass additional json attributes and arguments
+to the sub chef runs.
+
+__stage__ resources can also 
 
 
     include_recipe "stage"
@@ -27,6 +34,11 @@ idempotent).
 
     stage "second" do
       run_list "recipe[bar]"
+    end
+
+    stage "third" do
+      run_list "recipe[baz]"
+      save false # attributes from baz wont be merged against the node
     end
 
 
