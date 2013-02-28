@@ -46,7 +46,11 @@ action :run do
 
   if new_resource.save
     Chef::Log.info("Executing stage: #{new_resource.name} saving node")
-    chef_client.save_updated_node
+    data = chef_client.node.to_hash
+    %w{run_list recipes roles}.each do |k|
+      data.delete(k)
+    end
+    node.consume_attributes(data)
   end
 end
 
