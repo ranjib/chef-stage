@@ -10,17 +10,24 @@ Debian, Ubuntu, CentOS, Red Hat, Scientific, Fedora, SUSE, Amazon, GCEL.
 
 Usage
 ====
-```ruby
-include_recipe "stage"
+include the "stage" recipe to use the lwrp. this recipe provides a default resource name "stage". 
+__stage__ resource can have two options, __run_list__ which is simlar to node run list and can be
+a comma separated string of recipes and roles. the other option __save__ is a boolean, which dictates
+whether the attributes from the run list will be saved or merged against the current node or not, __save__
+is true by default. __stage__ resource right now support only _:run_ action. Stage reasource is idempotency 
+aware and can be used to notify other resources (assuming the resources invoked by the run list attribute are 
+idempotent).
 
-stage "first" do
-  run_list "recipe[foo]"
-end
 
-stage "second" do
-  run_list "recipe[bar]"
-end
-```
+    include_recipe "stage"
+
+    stage "first" do
+      run_list "recipe[foo]"
+    end
+
+    stage "second" do
+      run_list "recipe[bar]"
+    end
 
 
 License and Author
