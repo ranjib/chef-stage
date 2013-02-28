@@ -19,4 +19,8 @@
 # limitations under the License.
 #
 
+actions :run
+default_action :run
+
 attribute :run_list, :kind_of => String, :default => ""
+attribute :save, :kind_of => [ TrueClass, FalseClass ], :default => true

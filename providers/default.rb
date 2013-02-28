@@ -32,14 +32,21 @@ action :run do
   run_list = new_resource.run_list.split(",").collect do |item|
     Chef::RunList::RunListItem.new(item)
   end
+  Chef::Log.info("Executing stage: #{new_resource.name} with runlist: '#{run_list}'")
 
   chef_client.node.run_list(*run_list)
   chef_client.build_node
 
   run_context = chef_client.setup_run_context
   chef_client.converge(run_context)
+
   unless chef_client.run_status.updated_resources.empty?
     new_resource.updated_by_last_action(true)
+  end
+
+  if new_resource.save
+    Chef::Log.info("Executing stage: #{new_resource.name} saving node")
+    chef_client.save_updated_node
   end
 end
 
