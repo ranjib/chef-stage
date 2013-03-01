@@ -8,6 +8,10 @@ class Chef
         true
       end
 
+      def load_current_resource
+        true
+      end
+
       def action_run 
         stage = @new_resource.name
         Chef::Log.info("Executing stage: #{@new_resource.name} with runlist: '#{@new_resource.run_list}'")
