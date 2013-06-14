@@ -35,6 +35,7 @@ action :run do
   if new_resource.save
     Chef::Log.info("Executing stage: #{new_resource.name} saving node")
     node.consume_attributes(staged_chef_client.cleanse_attrs)
+    staged_chef_client.save_updated_node
   end
 end
 
